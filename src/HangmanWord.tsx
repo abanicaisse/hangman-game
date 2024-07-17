@@ -1,8 +1,18 @@
 import React from "react";
 
-const HangmanWord = () => {
-  const word = "test";
-  const guessedLetters = ["t", "e", "g"];
+type HangmanWordProps = {
+  guessedLetters: string[];
+  wordToGuess: string;
+  reveal?: boolean;
+};
+
+const HangmanWord = ({
+  guessedLetters,
+  wordToGuess,
+  reveal = false,
+}: HangmanWordProps) => {
+  // const word = "test";
+  // const guessedLetters = ["t", "e", "g"];
   return (
     <div
       style={{
@@ -14,13 +24,16 @@ const HangmanWord = () => {
         fontFamily: "monospace",
       }}
     >
-      {word.split("").map((letter, i) => (
+      {wordToGuess.split("").map((letter, i) => (
         <span key={i} style={{ borderBottom: ".1em solid black" }}>
           <span
             style={{
-              visibility: guessedLetters.includes(letter)
-                ? "visible"
-                : "hidden",
+              visibility:
+                guessedLetters.includes(letter) || reveal
+                  ? "visible"
+                  : "hidden",
+              color:
+                !guessedLetters.includes(letter) && reveal ? "red" : "black",
             }}
           >
             {letter}
